@@ -7,5 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -Werror -pedantic-error
 set(SOURCE_FILES
         library2.h
         main2.cpp
-        List.h HashTable.h)
+        List.h HashTable.h
+        DynamicArray.cpp DynamicArray.h
+        Heap.cpp Heap.h)
 add_executable(Wet2 ${SOURCE_FILES})
