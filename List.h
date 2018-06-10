@@ -16,29 +16,6 @@ class List {
 
 
 public:
-    List(): data(nullptr), next(nullptr){}
-    explicit List(T& t_data): data(&t_data), next(nullptr){}
-    ~List(){
-        data = nullptr;     //why not deleting data itself?
-        delete next;
-        next = nullptr;
-    }
-    List(const List& list) = delete;
-
-    List& insertFirst(T& t_data){
-        List* new_list = new List(t_data);
-        new_list->next = this;
-        return *new_list;
-    }
-
-    void deleteDataFromList(){
-        List* current = this;
-        while (current != nullptr){     //does this function deletes the data from list so you
-            // can destroy the list with destructor as above?
-            delete data;
-            current = current->next;
-        }
-    }
 
     class Iterator{
         List* node_ptr;     //should we add a field List to compare if the iterator are in the
@@ -82,6 +59,62 @@ public:
             return !(*this == rhs);
         }
     };
+
+
+    //List(T& t_data): data(nullptr), next(nullptr){}
+    explicit List(T& t_data): data(&t_data), next(nullptr){}
+    ~List(){
+        data = nullptr;     //why not deleting data itself?
+        delete next;
+        next = nullptr;
+    }
+    List(const List& list) = delete;
+
+    Iterator begin(){
+        Iterator beginning(this);
+        return beginning;
+    }
+
+    Iterator end(){
+        Iterator end_of_list;
+        return end_of_list;
+    }
+
+    List& insertFirst(T& t_data){
+        /*
+        if(this->data == nullptr){
+            this->data = &t_data;
+            return *this;
+        }
+        */
+        List* new_list = new List(t_data);
+        new_list->next = this;
+        return *new_list;
+    }
+
+    void deleteDataFromList(){
+        List* current = this;
+        while (current != nullptr){     //does this function deletes the data from list so you
+                                        // can destroy the list with destructor as above?
+            delete current->data;
+            current->data = nullptr;
+            current = current->next;
+        }
+    }
+
+    T* find(int key){
+        List* current = this;
+        while(current != nullptr){
+            if(*(current->data) == key){
+                return current->data;
+            } else {
+                current = current->next;
+            }
+        }
+        return nullptr;
+    }
+
+
 };
 
 
