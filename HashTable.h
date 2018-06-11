@@ -19,12 +19,12 @@ template <class T>
 class HashTable{
     int number_of_elements;
     int hash_size;
-    DynamicArray<List<T>* >* array;
+    List<T>** array;
 
     HashTable& rehash(){
-        DynamicArray<List<T>* >* new_array = DynamicArray<List<T>* >(3*hash_size);
+        List<T>** new_array = new List<T>*[3*hash_size];
         for (int i=0; i < hash_size; i++){
-            for(List<T>::Iterator it = array[i].begin(); it != array[i].end(); i++){
+            for(List<T>::Iterator it = array[i]->begin(); it != array[i]->end(); it++){
                 /*
                 int index = it % (3*hash_size);
 
@@ -33,16 +33,17 @@ class HashTable{
                  }
                  array[index]->&insertFirst(*data);
                 */
-                hash_size = 3*hash_size;
-                //delete array;
-                array = new_array;
+
             }
         }
+        //hash_size = 3*hash_size;
+        //delete array;
+        //array = new_array;
     }
 
 public:
     HashTable(int n, T** data, int* original_keys): number_of_elements(0), hash_size(0), array(nullptr){
-        array = new DynamicArray<T>(3*n);
+        array = new List<T>*[3*n];
         for (int i=0; i < n; i++){
             T* current_data = *(data+i);
             int current_key = *(original_keys+i);
@@ -53,13 +54,11 @@ public:
     ~HashTable()
     {
         for(int i=0; i < hash_size; i++){
-            /*
             if (array[i] != nullptr){
                 array[i]->deleteDataFromList();
                 delete array[i];
                 array[i] = nullptr;
             }
-             */
         }
         delete array;
     }
@@ -76,12 +75,10 @@ public:
             }
         }
         int index = original_key % hash_size;
-        /*
-         if(array[index] == nullptr){
-                array[index] = new List(*data);
-         }
-         array[index]->&insertFirst(*data);
-        */
+        if(array[index] == nullptr){
+            array[index] = new List(*data);
+        }
+        array[index]->insertFirst(*data);
         number_of_elements++;
         if (number_of_elements > 3*hash_size){
             return this->rehash();
@@ -92,7 +89,7 @@ public:
 
     T* findElement(int original_key){
         int index = original_key % hash_size;
-        //return array[new_key]->find(original_key);
+        return array[index]->find(original_key);
     }
 
 };
