@@ -10,10 +10,6 @@
 
 #define nullptr 0
 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-class DynamicArray; //MUST DELETE AFTER ARRAY IS FINISHED
-        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
 
 template <class T>
 class HashTable{

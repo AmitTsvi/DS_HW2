@@ -9,5 +9,8 @@ set(SOURCE_FILES
         main2.cpp
         List.h HashTable.h
         DynamicArray.cpp DynamicArray.h
-        Heap.cpp Heap.h)
+        Heap.cpp Heap.h
+        Clan.cpp Clan.h
+        Player.cpp Player.h
+        Oasis2.cpp Oasis2.h)
 add_executable(Wet2 ${SOURCE_FILES})

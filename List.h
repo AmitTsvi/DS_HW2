@@ -12,15 +12,14 @@
 template <class T>
 class List {
     T* data;
-    List* next;     //shoudlnt we make a list class with head node class of data and next?
+    List* next;
 
 
 public:
 
     class Iterator{
-        List* node_ptr;     //should we add a field List to compare if the iterator are in the
-        // same list?
-        //need to add begin and end funcs for iterator for iterating on a list
+        List* node_ptr;
+
     public:
         class NodeIsNull : public std::exception {};
 
@@ -50,9 +49,7 @@ public:
         }
 
         bool operator==(Iterator& rhs) const{
-            return (rhs.node_ptr == this->node_ptr);    //i think you need to overload
-            // operator== of list for this, or does it compare the memory segment each one points
-            // to?
+            return (rhs.node_ptr == this->node_ptr);
         }
 
         bool operator!=(Iterator& rhs) const{
@@ -64,7 +61,7 @@ public:
     //List(T& t_data): data(nullptr), next(nullptr){}
     explicit List(T& t_data): data(&t_data), next(nullptr){}
     ~List(){
-        data = nullptr;     //why not deleting data itself?
+        data = nullptr;
         delete next;
         next = nullptr;
     }
@@ -94,8 +91,7 @@ public:
 
     void deleteDataFromList(){
         List* current = this;
-        while (current != nullptr){     //does this function deletes the data from list so you
-                                        // can destroy the list with destructor as above?
+        while (current != nullptr){
             delete current->data;
             current->data = nullptr;
             current = current->next;
