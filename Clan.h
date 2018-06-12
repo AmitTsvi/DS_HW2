@@ -15,7 +15,21 @@ class Clan {
     int num_of_players;
 
 public:
+    Clan(int clan_id, int index): id(clan_id), index_in_heap(index), num_of_players(0){
+        //players = new Tree<Player>();     need to edit after tree is done
+    }
 
+    int getId () {
+        return id;
+    }
+
+    void setId (int num) {
+        id = num;
+    }
+
+    void setIndex (int num) {
+        index_in_heap = num;
+    }
 };
 
 #endif //WET2_CLAN_H
