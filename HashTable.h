@@ -21,20 +21,21 @@ class HashTable{
         List<T>** new_array = new List<T>*[3*hash_size];
         for (int i=0; i < hash_size; i++){
             for(List<T>::Iterator it = array[i]->begin(); it != array[i]->end(); it++){
-                /*
-                int index = it % (3*hash_size);
-
-                 if(array[index] == nullptr){
-                        array[index] = new List(*data);
-                 }
-                 array[index]->&insertFirst(*data);
-                */
-
+                int index = (*it).getId() % (3*hash_size);
+                if(new_array[index] == nullptr){
+                    new_array[index] = new List(*it);
+                } else {
+                    array[index] = &array[index]->insertFirst(*it);
+                }
+            }
+            if (array[i] != nullptr){
+                delete array[i];
+                array[i] = nullptr;
             }
         }
-        //hash_size = 3*hash_size;
-        //delete array;
-        //array = new_array;
+        delete array;
+        hash_size = 3*hash_size;
+        array = new_array;
     }
 
 public:
@@ -73,8 +74,9 @@ public:
         int index = original_key % hash_size;
         if(array[index] == nullptr){
             array[index] = new List(*data);
+        } else {
+            array[index] = &array[index]->insertFirst(*data);
         }
-        array[index]->insertFirst(*data);
         number_of_elements++;
         if (number_of_elements > 3*hash_size){
             return this->rehash();

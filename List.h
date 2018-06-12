@@ -29,9 +29,11 @@ public:
             node_ptr = node;
         }
 
-        ~iterator() = default;
+        ~Iterator() = default;
 
         Iterator(const Iterator& iterator) = default;
+
+        Iterator& operator=(const Iterator& rhs) = default;
 
         T& operator*() const{
             if (this->node_ptr == nullptr){
@@ -48,11 +50,11 @@ public:
             return *this;
         }
 
-        bool operator==(Iterator& rhs) const{
+        bool operator==(const Iterator& rhs) const{
             return (rhs.node_ptr == this->node_ptr);
         }
 
-        bool operator!=(Iterator& rhs) const{
+        bool operator!=(const Iterator& rhs) const{
             return !(*this == rhs);
         }
     };
@@ -73,7 +75,7 @@ public:
     }
 
     Iterator end(){
-        Iterator end_of_list;
+        Iterator end_of_list(nullptr);
         return end_of_list;
     }
 
