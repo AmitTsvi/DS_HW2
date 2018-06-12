@@ -17,10 +17,10 @@ class HashTable{
     int hash_size;
     List<T>** array;
 
-    HashTable& rehash(){
+    void rehash(){
         List<T>** new_array = new List<T>*[3*hash_size];
         for (int i=0; i < hash_size; i++){
-            for(List<T>::Iterator it = array[i]->begin(); it != array[i]->end(); it++){
+            for(typename List<T>::Iterator it = array[i]->begin(); it != array[i]->end(); it.operator++()){
                 int index = (*it).getId() % (3*hash_size);
                 if(new_array[index] == nullptr){
                     new_array[index] = new List(*it);
@@ -64,7 +64,7 @@ public:
 
     class AlreadyInHash : public std::exception {};
 
-    HashTable& insertElement(T* data, int original_key, bool check_existence){
+    void insertElement(T* data, int original_key, bool check_existence){
         if (check_existence){
             T* found = this->findElement(original_key);
             if (found != nullptr){
@@ -79,9 +79,7 @@ public:
         }
         number_of_elements++;
         if (number_of_elements > 3*hash_size){
-            return this->rehash();
-        } else {
-            return *this;
+            this->rehash();
         }
     }
 
