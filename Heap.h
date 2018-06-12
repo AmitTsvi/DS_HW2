@@ -7,16 +7,16 @@
 
 #include "DynamicArray.h"
 #define nullptr 0
-#define DELETE_INDEX -1
+#define DELETE_INDEX {-1}
 
 template <class T>
 class Heap {
-    DynamicArray<T*>* arr;
+    DynamicArray<T*>* arr;      //array starts in index 1
     int num_of_elements;
 
 public:
     Heap(int size): arr(nullptr), num_of_elements(0) {
-        arr = new DynamicArray<T*>(size);
+        arr = new DynamicArray<T*>(size+1);
     }
     //explicit Heap(DynamicArray<T>& new_arr): arr(&new_arr), num_of_elements(0){}
     ~Heap() {
@@ -24,8 +24,31 @@ public:
     }
     Heap (const Heap& heap) = delete;
 
-    void siftDown (int index) {
+    int Min (int num1, int num2) {
+        if (num1 > num2) {
+            return num1;
+        }
+        return num2;
+    }
 
+    void swap (int index1, int index2) {
+        T* temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = arr->operator[](index1);      //why it only let me like this???
+    }
+
+    void siftDown (int index) {
+        if (index*4 <= num_of_elements) {
+            siftDown(index*2);
+            siftDown((index*2)+1);
+        }
+        int min = index*2;
+        if (((index*2)+1) <= num_of_elements && arr[index*2].getId() > arr[(index*2)+1].getId()) {
+            min = (index*2)+1;
+        }
+        if (arr[index].getId() > arr[min].getId()) {
+            this->swap (index, min);
+        }
     }
 
     void siftUp(int index) {
@@ -33,17 +56,15 @@ public:
             return;
         }
         if (arr[index].getId() < arr[index/2].getId()) {
-            T* temp = arr[index];
-            arr[index] = arr[index/2];
-            arr[index/2] = arr->operator[](index);      //why it only let me like this???
+            this->swap(index, index/2);
         }
         return siftUp(index/2);
     }
 
     void Insert (T* data) {
-        arr[num_of_elements] = data;
-        siftUp(num_of_elements);
+        arr[num_of_elements+1] = data;
         num_of_elements++;
+        siftUp(num_of_elements);
     }
 
     void decKey (int index, int new_key) {
@@ -57,15 +78,15 @@ public:
     }
 
     T* findMin() {
-
+        return arr[1];
     }
     void deleteMin() {
-        T* temp = arr[0];
-        arr[0] = arr[num_of_elements-1];
-        arr[num_of_elements-1] = temp;
-        delete arr[num_of_elements-1];      //is this correct??
+        T* temp = arr[1];
+        arr[1] = arr[num_of_elements];
+        arr[num_of_elements] = temp;
+        delete arr[num_of_elements];      //is this correct??
         num_of_elements--;
-        siftDown(0);
+        this->siftDown(1);
     }
 
     void remove(int index) {
