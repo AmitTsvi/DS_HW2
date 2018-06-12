@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 98)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -Werror -pedantic-errors")
 
 set(SOURCE_FILES
+        Tree.h
         library2.h library2.cpp
         main2.cpp
         List.h HashTable.h
