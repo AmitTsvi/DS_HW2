@@ -26,7 +26,7 @@ public:
     //explicit Heap(DynamicArray<T>& new_arr): arr(&new_arr), num_of_elements(0){}
 
     ~Heap() {
-        delete *arr;
+        delete arr;
     }
 
     Heap (const Heap& heap) = delete;
@@ -34,7 +34,7 @@ public:
     void swap (int index1, int index2) {
         T* temp = (*arr)[index1];
         (*arr)[index1] = (*arr)[index2];
-        (*arr)[index2] = (*arr)[index1];      //is this
+        (*arr)[index2] = (*arr)[index1];
     }
 
     void siftDown (int index) {
@@ -48,6 +48,8 @@ public:
             min = (index*2)+1;
         }
         if ((*arr)[index]->getId() > (*arr)[min]->getId()) {
+            (*arr)[min]->setIndex(index);
+            (*arr)[index]->setIndex(min);
             this->swap (index, min);
         }
     }
@@ -57,6 +59,8 @@ public:
             return;
         }
         if ((*arr)[index]->getId() < (*arr)[index/2]->getId()) {
+            (*arr)[index]->setIndex(index/2);
+            (*arr)[index/2]->setIndex(index);
             this->swap(index, index/2);
         }
         return siftUp(index/2);
@@ -77,7 +81,7 @@ public:
         int org_key = (*arr)[index]->getId();
         (*arr)[index]->setId(new_key);
         siftUp(index);
-        (*arr)[0]->setId(org_key);
+        (*arr)[1]->setId(org_key);
     }
 
     T* findMin() {

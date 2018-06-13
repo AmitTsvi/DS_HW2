@@ -38,6 +38,20 @@ StatusType addClan(void *DS, int clanID) {
     return SUCCESS;
 }
 
+StatusType addPlayer(void *DS, int playerID, int score, int clan) {
+    if (DS == nullptr || playerID < 0 || score < 0 || clan < 0) {
+        return INVALID_INPUT;
+    }
+    try {
+        ((Oasis2 *) DS)->addPlayer(playerID,score,clan);
+        return SUCCESS;
+    } catch (std::bad_alloc& e) {
+        return ALLOCATION_ERROR;
+    } catch (std::exception& e) {
+        return FAILURE;
+    }
+}
+
 StatusType getMinClan(void *DS, int *clan) {
     if (DS == nullptr || clan == nullptr) {
         return INVALID_INPUT;
@@ -48,5 +62,10 @@ StatusType getMinClan(void *DS, int *clan) {
         return FAILURE;
     }
     return SUCCESS;
+}
+
+void quit(void** DS) {      //why is it **DS?? should be *DS no?
+    delete ((Oasis2*)DS);
+    *DS = nullptr;
 }
 

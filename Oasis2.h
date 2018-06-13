@@ -12,13 +12,14 @@
 #include "Heap.h"
 #include "library2.h"
 #include "exception"
+#include "Tree.h"
 
 #define CHECK_EXIST 1
 
 #define nullptr 0
 
 class Oasis2 {
-    Tree<Player>* players_tree;
+    Tree<Player,int>* players_tree;
     Heap<Clan>* heap;
     HashTable<Clan>* hashTable;
 
@@ -28,7 +29,7 @@ public:
         try {
             Clan** clan_ptrs_arr = new Clan*[n* sizeof(Clan*)];
             try {
-                hashTable = new HashTable (n,???,clanIDs,clan_ptrs_arr);
+                hashTable = new HashTable (n,???,clanIDs,clan_ptrs_arr);    //need to finish
                 try {
                     heap = new Heap (n,clan_ptrs_arr);
                 } catch (std::exception& e) {
@@ -44,6 +45,15 @@ public:
             throw e;
         }
     }
+
+    ~Oasis2() {
+        delete players_tree;        //should delete all content, verify to delete also root (look
+        // at wet1)
+        delete heap;
+        delete hashTable;
+    }
+
+    Oasis2 (const Oasis2& oasis2) = delete;
 
     void addClan (int clan_id) {
         Clan* clan = new Clan(clan_id,-1);
@@ -66,6 +76,17 @@ public:
             delete clan;
             throw e;
         }
+    }
+
+    void addPlayer (int playerID, int score, int clan) {
+        if (hashTable->findElement(clan) == nullptr) {
+            throw std::exception();
+        }
+        //need to add condition if player is in players tree and throw
+        try {
+
+            //add player to players tree
+        } catch ()
     }
 
     void getMinClan(int* clan) {

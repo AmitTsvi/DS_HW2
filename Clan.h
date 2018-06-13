@@ -19,6 +19,16 @@ public:
         //players = new Tree<Player>();     need to edit after tree is done
     }
 
+    ~Clan() {
+        delete players;         //should check if ok, same like delete of oasis2
+    }
+
+    Clan (const Clan& clan) = delete;
+
+    void addPlayerToClan () {
+
+    }
+
     int getId () {
         return id;
     }
