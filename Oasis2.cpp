@@ -102,7 +102,25 @@ void Oasis2::clanFight(int clan1, int clan2, int k1, int k2){
     if (clan1_data->getNumOfPlayers() < k1 || clan2_data->getNumOfPlayers() < k2){
         throw std::exception();
     }
-
+    Pair& key1 = clan1_data->getKBestPlayer(k1);
+    Pair& key2 = clan2_data->getKBestPlayer(k2);
+    int score1 = clan1_data->getSumOfBestK(key1);
+    int score2 = clan1_data->getSumOfBestK(key2);
+    if (score1 > score2){
+        clan2_data->setNotActive();
+        this->heap->remove(clan2_data->getIndex());
+    } else if (score1 < score2){
+        clan1_data->setNotActive();
+        this->heap->remove(clan1_data->getIndex());
+    } else {
+        if (clan1 > clan2){
+            clan1_data->setNotActive();
+            this->heap->remove(clan1_data->getIndex());
+        } else {
+            clan2_data->setNotActive();
+            this->heap->remove(clan2_data->getIndex());
+        }
+    }
 }
 
 void Oasis2::getMinClan(int* clan) {

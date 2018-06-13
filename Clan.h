@@ -29,6 +29,9 @@ public:
     bool getIsActive();
     void setNotActive()
     int getNumOfPlayers();
+    Pair& getKBestPlayer(int k);
+    int getSumOfBestK(Pair& key);
+    int getIndex();
 };
 
 #endif //WET2_CLAN_H

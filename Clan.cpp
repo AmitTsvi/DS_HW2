@@ -41,3 +41,18 @@ void Clan::setNotActive() {
 int Clan::getNumOfPlayers() {
     return num_of_players;
 }
+
+Pair& Clan::getKBestPlayer(int k){
+    int current_rank = 0;
+    return this->players->getKeyOfRank(k, &current_rank);
+}
+
+int Clan::getSumOfBestK(Pair& key){
+    int sum = 0;
+    this->players->getSumOfBigger(key, &sum);
+    return sum;
+}
+
+int Clan::getIndex(){
+    this->index_in_heap;
+}
