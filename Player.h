@@ -12,7 +12,6 @@ class Player {
     int id;
 
 public:
-
 };
 
 #endif //WET2_PLAYER_H

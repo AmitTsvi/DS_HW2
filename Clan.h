@@ -27,6 +27,7 @@ public:
     void setId (int num);
     void setIndex (int num);
     bool getIsActive();
+    void setNotActive()
     int getNumOfPlayers();
 };
 

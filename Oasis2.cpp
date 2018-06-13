@@ -81,13 +81,12 @@ void Oasis2::addClan (int clan_id) {
 }
 
 void Oasis2::addPlayer (int playerID, int score, int clan) {
-    if (hashTable->findElement(clan) == nullptr) {
+    if (hashTable->findElement(clan) == nullptr ||
+        players_tree->find(playerID).getRootKey() == playerID) {
         throw std::exception();
     }
-    //need to add condition if player is in players tree and throw
     try {
 
-        //add player to players tree
     } catch ()
 }
 

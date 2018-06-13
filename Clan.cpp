@@ -34,6 +34,10 @@ bool Clan::getIsActive() {
     return is_active;
 }
 
+void Clan::setNotActive() {
+    is_active = false;
+}
+
 int Clan::getNumOfPlayers() {
     return num_of_players;
 }
