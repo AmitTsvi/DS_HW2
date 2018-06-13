@@ -15,7 +15,7 @@ class Heap {
     int num_of_elements;
 
 public:
-    Heap(int n, T* keys_arr): arr(nullptr), num_of_elements(0) {
+    Heap(int n, T** keys_arr): arr(nullptr), num_of_elements(0) {
         arr = new DynamicArray<T*>(n*3);
         for (int i=0;i<n;i++) {
             this->insert(keys_arr+i,1);
@@ -69,7 +69,7 @@ public:
     void insert (T* data, bool is_start) {
         (*arr)[num_of_elements+1] = data;
         num_of_elements++;
-        if (is_start == 0) {
+        if (!is_start) {
             siftUp(num_of_elements);
         }
     }
@@ -102,6 +102,10 @@ public:
 
     int getNumOfElements () {
         return num_of_elements;
+    }
+
+    void setNumOfElements (int num) {
+        num_of_elements = num;
     }
 };
 

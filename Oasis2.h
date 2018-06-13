@@ -24,20 +24,50 @@ class Oasis2 {
     HashTable<Clan>* hashTable;
 
 public:
-    Oasis2(int n, int* clanIDs) {
-        //players_tree = new Tree
+    void delClanArr (Clan** clans_arr) {
+        Clan** ptr = clans_arr;
+        while (ptr != nullptr) {
+            delete *ptr;
+            ptr++;
+        }
+    }
+
+    Oasis2(int n, int* clanIDs): players_tree(nullptr), heap(nullptr), hashTable(nullptr) {
         try {
-            Clan** clan_ptrs_arr = new Clan*[n* sizeof(Clan*)];
+            Clan** clan_ptrs_arr = new Clan*[n];
             try {
+                int* IDs_ptr = clanIDs;
+                int i=1;
+                for (Clan** it = clan_ptrs_arr; it<clan_ptrs_arr+n;it++) {
+                    try {
+                        Clan* clan = new Clan(*IDs_ptr,i);
+                        *it = clan;
+                        IDs_ptr++;
+                        i++;
+                    } catch (std::exception& e) {
+                        delClanArr(clan_ptrs_arr);
+                        delete[] clan_ptrs_arr;
+                        throw e;
+                    }
+                }
                 hashTable = new HashTable (n,???,clanIDs,clan_ptrs_arr);    //need to finish
                 try {
                     heap = new Heap (n,clan_ptrs_arr);
+                    try {
+                        players_tree = new Tree<Player,int>();
+                    } catch (std::exception& e) {
+                        delete heap;
+                        delete hashTable;
+                        delete[] clan_ptrs_arr;
+                        throw e;
+                    }
                 } catch (std::exception& e) {
                     delete hashTable;
                     delete[] clan_ptrs_arr;
                     throw e;
                 }
             } catch (std::exception& e) {
+                delClanArr(clan_ptrs_arr);
                 delete[] clan_ptrs_arr;
                 throw e;
             }
@@ -47,8 +77,8 @@ public:
     }
 
     ~Oasis2() {
-        delete players_tree;        //should delete all content, verify to delete also root (look
-        // at wet1)
+        players_tree->deleteTree(true);
+        delete players_tree;
         delete heap;
         delete hashTable;
     }
@@ -56,24 +86,23 @@ public:
     Oasis2 (const Oasis2& oasis2) = delete;
 
     void addClan (int clan_id) {
-        Clan* clan = new Clan(clan_id,-1);
         try {
-            heap->insert(clan, 0);
-            clan->setIndex(heap->getNumOfElements());
+            Clan* clan = new Clan(clan_id,heap->getNumOfElements()+1);
             try {
-                hashTable->insertElement(clan, clan_id,CHECK_EXIST);
+                heap->insert(clan, false);
+                try {
+                    hashTable->insertElement(clan, clan_id,CHECK_EXIST);
+                } catch (std::exception& e) {
+                    heap->remove(heap->getNumOfElements());
+                    delete clan;
+                    throw e;
+                }
             } catch (std::exception& e) {
-                heap->remove(heap->getNumOfElements());
                 delete clan;
-                throw e;    //is it okay to throw a generic e and deal with the real value
-                // outside? will it know how to sort the exception outside?
-                //throw bad_alloc();
+                heap->setNumOfElements(heap->getNumOfElements()-1);
+                throw e;
             }
-            /*} catch (std::exception& e) {
-                throw std::exception();
-            }*/
         } catch (std::exception& e) {
-            delete clan;
             throw e;
         }
     }
