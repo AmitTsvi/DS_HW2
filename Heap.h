@@ -14,23 +14,6 @@ class Heap {
     DynamicArray<T*>* arr;      //array starts in index 1
     int num_of_elements;
 
-public:
-    Heap(int n, T** keys_arr): arr(nullptr), num_of_elements(0) {
-        arr = new DynamicArray<T*>(n*3);
-        for (int i=0;i<n;i++) {
-            this->insert(keys_arr+i,1);
-        }
-        this->siftDown(1);
-    }
-
-    //explicit Heap(DynamicArray<T>& new_arr): arr(&new_arr), num_of_elements(0){}
-
-    ~Heap() {
-        delete arr;
-    }
-
-    Heap (const Heap& heap) = delete;
-
     void swap (int index1, int index2) {
         T* temp = (*arr)[index1];
         (*arr)[index1] = (*arr)[index2];
@@ -65,6 +48,21 @@ public:
         }
         return siftUp(index/2);
     }
+
+public:
+    explicit Heap(int n, T** keys_arr): arr(nullptr), num_of_elements(0) {
+        arr = new DynamicArray<T*>(n*3);
+        for (int i=0;i<n;i++) {
+            this->insert(keys_arr+i,1);
+        }
+        this->siftDown(1);
+    }
+
+    ~Heap() {
+        delete arr;
+    }
+
+    Heap (const Heap& heap) = delete;
 
     void insert (T* data, bool is_start) {
         (*arr)[num_of_elements+1] = data;

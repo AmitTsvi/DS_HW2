@@ -19,41 +19,15 @@ class Clan {
     bool is_active;
 
 public:
-    Clan(int clan_id, int index): id(clan_id), index_in_heap(index), num_of_players(0), is_active
-            (true){
-        //players = new Tree<Player>();     need to edit after tree is done
-    }
-
-    ~Clan() {
-        players->deleteTree(true);
-        delete players;
-    }
-
+    explicit Clan(int clan_id, int index);
+    ~Clan();
     Clan (const Clan& clan) = delete;
-
-    void addPlayerToClan () {
-
-    }
-
-    int getId () {
-        return id;
-    }
-
-    void setId (int num) {
-        id = num;
-    }
-
-    void setIndex (int num) {
-        index_in_heap = num;
-    }
-
-    bool getIsActive() {
-        return is_active;
-    }
-
-    int getNumOfPlayers() {
-        return num_of_players;
-    }
+    void addPlayerToClan ();
+    int getId ();
+    void setId (int num);
+    void setIndex (int num);
+    bool getIsActive();
+    int getNumOfPlayers();
 };
 
 #endif //WET2_CLAN_H

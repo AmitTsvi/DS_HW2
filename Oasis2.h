@@ -24,118 +24,14 @@ class Oasis2 {
     HashTable<Clan>* hashTable;
 
 public:
-    void delClanArr (Clan** clans_arr) {
-        Clan** ptr = clans_arr;
-        while (ptr != nullptr) {
-            delete *ptr;
-            ptr++;
-        }
-    }
-
-    Oasis2(int n, int* clanIDs): players_tree(nullptr), heap(nullptr), hashTable(nullptr) {
-        try {
-            Clan** clan_ptrs_arr = new Clan*[n];
-            try {
-                int* IDs_ptr = clanIDs;
-                int i=1;
-                for (Clan** it = clan_ptrs_arr; it<clan_ptrs_arr+n;it++) {
-                    try {
-                        Clan* clan = new Clan(*IDs_ptr,i);
-                        *it = clan;
-                        IDs_ptr++;
-                        i++;
-                    } catch (std::exception& e) {
-                        delClanArr(clan_ptrs_arr);
-                        delete[] clan_ptrs_arr;
-                        throw e;
-                    }
-                }
-                hashTable = new HashTable (n,???,clanIDs,clan_ptrs_arr);    //need to finish
-                try {
-                    heap = new Heap (n,clan_ptrs_arr);
-                    try {
-                        players_tree = new Tree<Player,int>();
-                    } catch (std::exception& e) {
-                        delete heap;
-                        delete hashTable;
-                        delete[] clan_ptrs_arr;
-                        throw e;
-                    }
-                } catch (std::exception& e) {
-                    delete hashTable;
-                    delete[] clan_ptrs_arr;
-                    throw e;
-                }
-            } catch (std::exception& e) {
-                delClanArr(clan_ptrs_arr);
-                delete[] clan_ptrs_arr;
-                throw e;
-            }
-        } catch (std::exception& e) {
-            throw e;
-        }
-    }
-
-    ~Oasis2() {
-        players_tree->deleteTree(true);
-        delete players_tree;
-        delete heap;
-        delete hashTable;
-    }
-
+    explicit  Oasis2(int n, int* clanIDs);
+    ~Oasis2();
     Oasis2 (const Oasis2& oasis2) = delete;
-
-    void addClan (int clan_id) {
-        try {
-            Clan* clan = new Clan(clan_id,heap->getNumOfElements()+1);
-            try {
-                heap->insert(clan, false);
-                try {
-                    hashTable->insertElement(clan, clan_id,CHECK_EXIST);
-                } catch (std::exception& e) {
-                    heap->remove(heap->getNumOfElements());
-                    delete clan;
-                    throw e;
-                }
-            } catch (std::exception& e) {
-                delete clan;
-                heap->setNumOfElements(heap->getNumOfElements()-1);
-                throw e;
-            }
-        } catch (std::exception& e) {
-            throw e;
-        }
-    }
-
-    void addPlayer (int playerID, int score, int clan) {
-        if (hashTable->findElement(clan) == nullptr) {
-            throw std::exception();
-        }
-        //need to add condition if player is in players tree and throw
-        try {
-
-            //add player to players tree
-        } catch ()
-    }
-
-    void clanFight(int clan1, int clan2, int k1, int k2){
-        Clan* clan1_data = this->hashTable->findElement(clan1);
-        Clan* clan2_data = this->hashTable->findElement(clan2);
-        if (clan1_data == nullptr || clan2_data == nullptr){
-            throw std::exception();
-        }
-        if (clan1_data->getIsActive() == false || clan1_data->getIsActive() == false){
-            throw std::exception();
-        }
-        if (clan1_data->getNumOfPlayers() < k1 || clan2_data->getNumOfPlayers() < k2){
-            throw std::exception();
-        }
-
-    }
-
-    void getMinClan(int* clan) {
-        *clan = this->heap->findMin()->getId();
-    }
+    void addClan (int clan_id);
+    void addPlayer (int playerID, int score, int clan);
+    void clanFight(int clan1, int clan2, int k1, int k2);
+    void getMinClan(int* clan);
+    void delClanArr (Clan** clans_arr);
 };
 
 

@@ -12,20 +12,6 @@ class DynamicArray {
     T* head;
     int size;
 
-public:
-    DynamicArray(int new_size):  head(nullptr), size(new_size) {
-        head =  new T[size];
-        for (T* ptr=head; ptr < head+size; ptr++) {
-            *ptr = nullptr;
-        }
-    }
-
-    ~DynamicArray() {
-        delete[] head;
-    }
-
-    DynamicArray(const DynamicArray& arr) = delete;
-
     void resize () {
         T* new_head = new T[size*3];
         T* new_ptr = new_head;
@@ -40,6 +26,20 @@ public:
         head = new_head;
         size = size*3;
     }
+
+public:
+    explicit DynamicArray(int new_size):  head(nullptr), size(new_size) {
+        head =  new T[size];
+        for (T* ptr=head; ptr < head+size; ptr++) {
+            *ptr = nullptr;
+        }
+    }
+
+    ~DynamicArray() {
+        delete[] head;
+    }
+
+    DynamicArray (const DynamicArray& arr) = delete;
 
     T& operator[](int index) {
         if (index >= size) {
