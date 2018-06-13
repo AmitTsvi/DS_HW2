@@ -6,6 +6,8 @@
 #define CODE_TREE_H
 
 #include <exception>
+#include <assert.h>
+
 #define nullptr 0
 
 template <class Data, class Key>
@@ -319,7 +321,22 @@ public:
         }
     }
 
-    Key& getKeyOfRank()
+    Key& getKeyOfRank(int rank, int* current_rank){
+        int check_rank = *current_rank +1;;
+        if (this->rson != nullptr){
+            check_rank += this->rson->size;
+        }
+        if (check_rank == rank){
+            return this->key;
+        } else if (check_rank > rank){
+            assert(this->rson != nullptr);
+            return this->rson->getKeyOfRank(rank, current_rank);
+        } else {
+            assert(this->lson != nullptr);
+            *current_rank += this->rson->size + 1;
+            return this->lson->getKeyOfRank(rank, current_rank);
+        }
+    }
 
     void getSumOfBigger(Key& key, int* new_sum){
         if ((this->find(key)).key != key){
