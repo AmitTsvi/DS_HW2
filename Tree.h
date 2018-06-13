@@ -301,7 +301,7 @@ public:
         return root;
     }
 
-    void getRank(Key& key, int* rank){
+    void getRankOfKey(Key& key, int* rank){
         if ((this->find(key)).key != key){
             throw DoesNotExist();
         }
@@ -311,13 +311,15 @@ public:
         }
         else {
             if (*(this->key) > key) {
-                this->lson->getRank(key, rank);
+                this->lson->getRankOfKey(key, rank);
             } else {
                 (*rank) += (this->lson->size + 1);
-                this->rson->getRank(key ,rank);
+                this->rson->getRankOfKey(key ,rank);
             }
         }
     }
+
+    Key& getKeyOfRank()
 
     void getSumOfBigger(Key& key, int* new_sum){
         if ((this->find(key)).key != key){

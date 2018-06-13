@@ -118,6 +118,21 @@ public:
         } catch ()
     }
 
+    void clanFight(int clan1, int clan2, int k1, int k2){
+        Clan* clan1_data = this->hashTable->findElement(clan1);
+        Clan* clan2_data = this->hashTable->findElement(clan2);
+        if (clan1_data == nullptr || clan2_data == nullptr){
+            throw std::exception();
+        }
+        if (clan1_data->getIsActive() == false || clan1_data->getIsActive() == false){
+            throw std::exception();
+        }
+        if (clan1_data->getNumOfPlayers() < k1 || clan2_data->getNumOfPlayers() < k2){
+            throw std::exception();
+        }
+
+    }
+
     void getMinClan(int* clan) {
         *clan = this->heap->findMin()->getId();
     }
