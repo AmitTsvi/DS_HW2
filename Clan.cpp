@@ -10,7 +10,7 @@ Clan::Clan(int clan_id, int index): id(clan_id), index_in_heap(index), num_of_pl
 }
 
 Clan::~Clan() {
-    players->deleteTree(true);
+    players->deleteTree(false);
     delete players;
 }
 

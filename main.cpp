@@ -133,7 +133,7 @@ void testQuit(void* oasis){
 }
 
 //this is an extra - not the test, erase if you want to run on csl
-const int DONE =-1;
+/*const int DONE =-1;
 void printSomeChar(char c, int amount){
     for(int i=0; i<amount*2; i++)
         std::cout<<c;
@@ -272,7 +272,7 @@ void printMovingP(char c, char space){
         side+=-2;
 
     }
-}/*
+}
 void coverP(){
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     printMovingP(178,' ');
