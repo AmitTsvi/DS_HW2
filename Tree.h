@@ -343,12 +343,12 @@ public:
             throw DoesNotExist();
         }
         if (*(this->key) == key) {
-            (*new_sum) += (this->lson->sum + (*this->lson->key));
+            (*new_sum) += ((*this->lson->key)+ this->lson->sum);
             return;
         }
         else {
             if (*(this->key) > key) {
-                (*new_sum) += (this->lson->sum + (*this->lson->key));
+                (*new_sum) += ((*this->lson->key) + this->lson->sum);
                 this->lson->getSumOfBigger(key, new_sum);
             } else {
                 this->rson->getSumOfBigger(key ,new_sum);

@@ -23,7 +23,7 @@ class HashTable{
             for(typename List<T>::Iterator it = array[i]->begin(); it != array[i]->end(); it.operator++()){
                 int index = (*it).getId() % (3*hash_size);
                 if(new_array[index] == nullptr){
-                    new_array[index] = new List(*it);
+                    new_array[index] = new List<T>(*it);
                 } else {
                     array[index] = &array[index]->insertFirst(*it);
                 }
@@ -73,7 +73,7 @@ public:
         }
         int index = original_key % hash_size;
         if(array[index] == nullptr){
-            array[index] = new List(*data);
+            array[index] = new List<T>(*data);
         } else {
             array[index] = &array[index]->insertFirst(*data);
         }

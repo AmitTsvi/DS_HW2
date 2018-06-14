@@ -66,6 +66,7 @@ StatusType clanFight(void *DS, int clan1, int clan2, int k1, int k2){
     } catch (std::exception& e) {
         return FAILURE;
     }
+    return SUCCESS;
 }
 
 StatusType getMinClan(void *DS, int *clan) {
