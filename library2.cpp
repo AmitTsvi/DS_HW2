@@ -8,7 +8,7 @@
 #include "exception"
 
 void* init(int n, int *clanIDs) {
-    if (n<2) {
+    if (n<2 || clanIDs == nullptr) {
         return nullptr;
     }
     for (int i=0;i<n;i++) {

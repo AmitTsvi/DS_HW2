@@ -272,7 +272,7 @@ void printMovingP(char c, char space){
         side+=-2;
 
     }
-}
+}/*
 void coverP(){
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     printMovingP(178,' ');
@@ -290,7 +290,7 @@ void coverP(){
             return;
         }
     }
-}
+}*/
 //till here
 
 int main(){
@@ -305,6 +305,6 @@ int main(){
     testFightAndMin(oasis);
     testQuit(oasis);
 
-    coverP();   //penguin fun :0
+    //coverP();   //penguin fun :0
     return 0;
 }

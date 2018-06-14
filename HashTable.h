@@ -39,7 +39,8 @@ class HashTable{
     }
 
 public:
-    HashTable(int n, T** data, int* original_keys): number_of_elements(0), hash_size(0), array(nullptr){
+    HashTable(int n, T** data, int* original_keys): number_of_elements(0), hash_size(3*n), array
+            (nullptr){
         array = new List<T>*[3*n];
         for (int i=0; i < n; i++){
             T* current_data = *(data+i);
@@ -71,7 +72,7 @@ public:
                 throw AlreadyInHash();
             }
         }
-        int index = original_key % hash_size;
+        int index = (original_key % hash_size);
         if(array[index] == nullptr){
             array[index] = new List<T>(*data);
         } else {
