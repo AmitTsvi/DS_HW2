@@ -15,9 +15,11 @@ class Heap {
     int num_of_elements;
 
     void swap (int index1, int index2) {
+        (*arr)[index1]->setIndex(index2);
+        (*arr)[index2]->setIndex(index1);
         T* temp = (*arr)[index1];
         (*arr)[index1] = (*arr)[index2];
-        (*arr)[index2] = (*arr)[temp];
+        (*arr)[index2] = temp;
     }
 
     void siftDown (int index) {
@@ -31,8 +33,6 @@ class Heap {
             min = (index*2)+1;
         }
         if ((*arr)[index]->getId() > (*arr)[min]->getId()) {
-            (*arr)[min]->setIndex(index);
-            (*arr)[index]->setIndex(min);
             this->swap (index, min);
         }
     }
@@ -42,8 +42,6 @@ class Heap {
             return;
         }
         if ((*arr)[index]->getId() < (*arr)[index/2]->getId()) {
-            (*arr)[index]->setIndex(index/2);
-            (*arr)[index/2]->setIndex(index);
             this->swap(index, index/2);
         }
         return siftUp(index/2);
@@ -53,7 +51,7 @@ public:
     explicit Heap(int n, T** keys_arr): arr(nullptr), num_of_elements(0) {
         arr = new DynamicArray<T*>(n*3);
         for (int i=0;i<n;i++) {
-            this->insert(keys_arr+i,1);
+            this->insert(*(keys_arr+i),1);
         }
         this->siftDown(1);
     }

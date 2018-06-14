@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror -pedantic-error
 set(SOURCE_FILES
         Tree.h
         library2.h library2.cpp
-        main2.cpp
+        main.cpp
         List.h HashTable.h
         DynamicArray.h
         Heap.h
