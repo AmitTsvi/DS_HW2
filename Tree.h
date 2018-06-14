@@ -337,7 +337,7 @@ public:
             return this->lson->getKeyOfRank(rank, current_rank);
         }
     }
-
+/*
     void getSumOfBigger(Key& key, int* new_sum){
         if (*(this->find(key)).key != key){
             throw DoesNotExist();
@@ -349,6 +349,25 @@ public:
         else {
             if (*(this->key) > key) {
                 (*new_sum) += ((*this->lson->key) + this->lson->sum);
+                this->lson->getSumOfBigger(key, new_sum);
+            } else {
+                this->rson->getSumOfBigger(key ,new_sum);
+            }
+        }
+    }
+    */
+
+    void getSumOfBigger(Key& key, int* new_sum){
+        if (*(this->find(key)).key != key){
+            throw DoesNotExist();
+        }
+        if (*(this->key) == key) {
+            (*new_sum) += ((*this->key) + this->rson->sum);
+            return;
+        }
+        else {
+            if (*(this->key) > key) {
+                (*new_sum) += ((*this->key) + this->rson->sum);
                 this->lson->getSumOfBigger(key, new_sum);
             } else {
                 this->rson->getSumOfBigger(key ,new_sum);
