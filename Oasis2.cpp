@@ -81,13 +81,31 @@ void Oasis2::addClan (int clan_id) {
 }
 
 void Oasis2::addPlayer (int playerID, int score, int clan) {
-    if (hashTable->findElement(clan) == nullptr ||
-        players_tree->find(playerID).getRootKey() == playerID) {
+    if (hashTable->findElement(clan) == nullptr) {
+        throw std::exception();
+    }
+    Player* player = new Player(score,playerID);
+    try {
+        players_tree->insert(playerID, *player);
+    } catch (std::exception& e) {
+        delete player;
         throw std::exception();
     }
     try {
-
-    } catch ()
+        Pair* pair = new Pair(playerID,score);
+        try {
+            hashTable->findElement(clan)->addPlayerToClan(*player, *pair);
+        } catch (std::exception& e){
+            delete pair;
+            players_tree->remove();     //need to add remove again to tree and edit
+            delete player;
+            throw std::exception();
+        }
+    } catch (std::exception& e){
+        players_tree->remove();     //need to add remove again to tree and edit
+        delete player;
+        throw std::exception();
+    }
 }
 
 void Oasis2::clanFight(int clan1, int clan2, int k1, int k2){

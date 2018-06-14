@@ -22,12 +22,12 @@ public:
     explicit Clan(int clan_id, int index);
     ~Clan();
     Clan (const Clan& clan) = delete;
-    void addPlayerToClan ();
+    void addPlayerToClan (Player& player, Pair& key);
     int getId ();
     void setId (int num);
     void setIndex (int num);
     bool getIsActive();
-    void setNotActive()
+    void setNotActive();.
     int getNumOfPlayers();
     Pair& getKBestPlayer(int k);
     int getSumOfBestK(Pair& key);

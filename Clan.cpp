@@ -14,8 +14,8 @@ Clan::~Clan() {
     delete players;
 }
 
-void Clan::addPlayerToClan () {
-
+void Clan::addPlayerToClan (Player& player, Pair& key) {
+    players->insert(key,player);
 }
 
 int Clan::getId () {

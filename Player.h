@@ -12,6 +12,10 @@ class Player {
     int id;
 
 public:
+    explicit Player(int score, int id): score(score), id(id){}
+    ~Player() = default;
+    Player (const Player& p) = delete;
+
 };
 
 #endif //WET2_PLAYER_H
