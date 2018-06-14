@@ -97,12 +97,12 @@ void Oasis2::addPlayer (int playerID, int score, int clan) {
             hashTable->findElement(clan)->addPlayerToClan(*player, *pair);
         } catch (std::exception& e){
             delete pair;
-            players_tree->remove();     //need to add remove again to tree and edit
+            //players_tree->remove();     //need to add remove again to tree and edit
             delete player;
             throw std::exception();
         }
     } catch (std::exception& e){
-        players_tree->remove();     //need to add remove again to tree and edit
+        //players_tree->remove();     //need to add remove again to tree and edit
         delete player;
         throw std::exception();
     }
@@ -114,7 +114,7 @@ void Oasis2::clanFight(int clan1, int clan2, int k1, int k2){
     if (clan1_data == nullptr || clan2_data == nullptr){
         throw std::exception();
     }
-    if (clan1_data->getIsActive() == false || clan1_data->getIsActive() == false){
+    if (!clan1_data->getIsActive() || !clan1_data->getIsActive()){
         throw std::exception();
     }
     if (clan1_data->getNumOfPlayers() < k1 || clan2_data->getNumOfPlayers() < k2){
