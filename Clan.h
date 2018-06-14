@@ -27,7 +27,7 @@ public:
     void setId (int num);
     void setIndex (int num);
     bool getIsActive();
-    void setNotActive();.
+    void setNotActive();
     int getNumOfPlayers();
     Pair& getKBestPlayer(int k);
     int getSumOfBestK(Pair& key);

@@ -17,7 +17,7 @@ class Heap {
     void swap (int index1, int index2) {
         T* temp = (*arr)[index1];
         (*arr)[index1] = (*arr)[index2];
-        (*arr)[index2] = (*arr)[index1];
+        (*arr)[index2] = (*arr)[temp];
     }
 
     void siftDown (int index) {
@@ -88,7 +88,7 @@ public:
 
     void deleteMin() {
         swap(1,num_of_elements);
-        delete arr[num_of_elements];      //is this correct??
+        delete (*arr)[num_of_elements];      //is this correct??
         num_of_elements--;
         this->siftDown(1);
     }

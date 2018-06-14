@@ -24,9 +24,9 @@ Oasis2::Oasis2(int n, int* clanIDs): players_tree(nullptr), heap(nullptr), hashT
                     throw e;
                 }
             }
-            hashTable = new HashTable (n,clan_ptrs_arr,clanIDs,clan_ptrs_arr);
+            hashTable = new HashTable<Clan> (n,clan_ptrs_arr,clanIDs);
             try {
-                heap = new Heap (n,clan_ptrs_arr);
+                heap = new Heap<Clan> (n,clan_ptrs_arr);
                 try {
                     players_tree = new Tree<Player,int>();
                 } catch (std::exception& e) {
