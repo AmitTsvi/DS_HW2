@@ -15,7 +15,8 @@ Clan::~Clan() {
 }
 
 void Clan::addPlayerToClan (Player& player, Pair& key) {
-    players->insert(key,player);
+    players = players->insert(key,player);
+    num_of_players++;
 }
 
 int Clan::getId () {

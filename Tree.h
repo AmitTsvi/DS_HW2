@@ -365,7 +365,7 @@ public:
             if (this->rson != nullptr){
                 (*new_sum) += ((*this->key) + this->rson->sum);
             } else {
-                (*new_sum) += *this->key;
+                (*new_sum) += *this->key+0;
             }
             return;
         }
@@ -374,7 +374,7 @@ public:
                 if (this->rson != nullptr){
                     (*new_sum) += ((*this->key) + this->rson->sum);
                 } else {
-                    (*new_sum) += *this->key;
+                    (*new_sum) += *this->key+0;
                 }
                 this->lson->getSumOfBigger(key, new_sum);
             } else {

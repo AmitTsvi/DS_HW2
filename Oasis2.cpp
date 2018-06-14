@@ -89,7 +89,7 @@ void Oasis2::addPlayer (int playerID, int score, int clan) {
     try {
         int* key = new int(playerID);
         try {
-            players_tree->insert(*key, *player);
+            players_tree = players_tree->insert(*key, *player);
         } catch (std::exception& e) {
             delete player;
             player = nullptr;
@@ -133,7 +133,7 @@ void Oasis2::clanFight(int clan1, int clan2, int k1, int k2){
     Pair& key1 = clan1_data->getKBestPlayer(k1);
     Pair& key2 = clan2_data->getKBestPlayer(k2);
     int score1 = clan1_data->getSumOfBestK(key1);
-    int score2 = clan1_data->getSumOfBestK(key2);
+    int score2 = clan2_data->getSumOfBestK(key2);
     if (score1 > score2){
         clan2_data->setNotActive();
         this->heap->remove(clan2_data->getIndex());
