@@ -25,6 +25,8 @@ class Heap {
     void siftDown (int index) {
         if (index*4 <= num_of_elements) {
             siftDown(index*2);
+        }
+        if ((index*4)+2 <= num_of_elements) {
             siftDown((index*2)+1);
         }
         int min = index*2;
@@ -51,7 +53,7 @@ public:
     explicit Heap(int n, T** keys_arr): arr(nullptr), num_of_elements(0) {
         arr = new DynamicArray<T*>(n*3);
         for (int i=0;i<n;i++) {
-            this->insert(*(keys_arr+i),1);
+            this->insert(*(keys_arr+i),true);
         }
         this->siftDown(1);
     }

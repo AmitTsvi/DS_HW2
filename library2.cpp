@@ -12,7 +12,7 @@ void* init(int n, int *clanIDs) {
         return nullptr;
     }
     for (int i=0;i<n;i++) {
-        if (clanIDs+i < 0) {
+        if (*(clanIDs+i) < 0) {
             return nullptr;
         }
     }
