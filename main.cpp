@@ -296,9 +296,9 @@ void coverP(){
 int main(){
     void* oasis=testInit1();
     assert(oasis);
-    /*testAddClan1(oasis);
+    testAddClan1(oasis);
     quit(&oasis);
-    oasis=testInit2(); //on oasis we got 0-19 clans till now
+    /*oasis=testInit2(); //on oasis we got 0-19 clans till now
     assert(oasis);
     testAddClan2(oasis); //add some more clans that we wont use and check if all 0-19 are in
     testAddPlayer(oasis);

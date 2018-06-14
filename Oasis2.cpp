@@ -66,13 +66,14 @@ void Oasis2::addClan (int clan_id) {
             try {
                 hashTable->insertElement(clan, clan_id,CHECK_EXIST);
             } catch (std::exception& e) {
-                heap->remove(heap->getNumOfElements());
+                heap->remove(clan->getIndex());
                 delete clan;
+                clan = nullptr;
                 throw e;
             }
         } catch (std::exception& e) {
             delete clan;
-            heap->setNumOfElements(org_num_of_elm);
+            //heap->setNumOfElements(org_num_of_elm);
             throw e;
         }
     } catch (std::exception& e) {
