@@ -87,7 +87,15 @@ void Oasis2::addPlayer (int playerID, int score, int clan) {
     }
     Player* player = new Player(score,playerID);
     try {
-        players_tree->insert(playerID, *player);
+        int* key = new int(playerID);
+        try {
+            players_tree->insert(*key, *player);
+        } catch (std::exception& e) {
+            delete player;
+            player = nullptr;
+            delete key;
+            throw std::exception();
+        }
     } catch (std::exception& e) {
         delete player;
         throw std::exception();
@@ -100,6 +108,7 @@ void Oasis2::addPlayer (int playerID, int score, int clan) {
             delete pair;
             //players_tree->remove();     //need to add remove again to tree and edit
             delete player;
+            player = nullptr;
             throw std::exception();
         }
     } catch (std::exception& e){
