@@ -82,7 +82,7 @@ StatusType getMinClan(void *DS, int *clan) {
 }
 
 void quit(void** DS) {
-    delete ((Oasis2*)DS);
+    delete ((Oasis2*)(*DS));
     *DS = nullptr;
 }
 

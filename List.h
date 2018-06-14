@@ -111,8 +111,23 @@ public:
         }
         return nullptr;
     }
-
-
+/*
+    List& remove(int key){
+        List* current = this;
+        if (current->data->getId() == key){
+            List* new_head = this->next;
+            dele
+        }
+        while(current != nullptr){
+            if(current->data->getId() == key){
+                return current->data;
+            } else {
+                current = current->next;
+            }
+        }
+        return;
+    }
+*/
 };
 
 

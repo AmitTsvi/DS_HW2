@@ -25,7 +25,7 @@ class HashTable{
                 if(new_array[index] == nullptr){
                     new_array[index] = new List<T>(*it);
                 } else {
-                    array[index] = &array[index]->insertFirst(*it);
+                    new_array[index] = &array[index]->insertFirst(*it);
                 }
             }
             if (array[i] != nullptr){
@@ -39,9 +39,12 @@ class HashTable{
     }
 
 public:
-    HashTable(int n, T** data, int* original_keys): number_of_elements(0), hash_size(3*n), array
-            (nullptr){
+    HashTable(int n, T** data, int* original_keys): number_of_elements(0), hash_size(3*n),
+                                                    array(nullptr){
         array = new List<T>*[3*n];
+        for (int i=0; i < 3*n; i++){
+            array[i] = nullptr;
+        }
         for (int i=0; i < n; i++){
             T* current_data = *(data+i);
             int current_key = *(original_keys+i);
@@ -80,7 +83,7 @@ public:
         }
         number_of_elements++;
         if (number_of_elements > 3*hash_size){
-            this->rehash();
+                this->rehash();
         }
     }
 
@@ -88,7 +91,12 @@ public:
         int index = original_key % hash_size;
         return array[index]->find(original_key);
     }
-
+/*
+    void removeElement(int original_key){
+        int index = original_key % hash_size;
+        array[index] = &array[index]->remove(original_key);
+    }
+    */
 };
 
 
