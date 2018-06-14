@@ -103,7 +103,7 @@ public:
     T* find(int key){
         List* current = this;
         while(current != nullptr){
-            if(*(current->data) == key){
+            if(current->data->getId() == key){
                 return current->data;
             } else {
                 current = current->next;
