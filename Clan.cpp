@@ -54,5 +54,5 @@ int Clan::getSumOfBestK(Pair& key){
 }
 
 int Clan::getIndex(){
-    this->index_in_heap;
+    return this->index_in_heap;
 }

@@ -327,7 +327,7 @@ public:
             check_rank += this->rson->size;
         }
         if (check_rank == rank){
-            return this->key;
+            return *this->key;
         } else if (check_rank > rank){
             assert(this->rson != nullptr);
             return this->rson->getKeyOfRank(rank, current_rank);
@@ -339,7 +339,7 @@ public:
     }
 
     void getSumOfBigger(Key& key, int* new_sum){
-        if ((this->find(key)).key != key){
+        if (*(this->find(key)).key != key){
             throw DoesNotExist();
         }
         if (*(this->key) == key) {
