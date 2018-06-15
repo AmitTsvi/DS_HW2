@@ -2,6 +2,7 @@
 // Created by Nitzan on 11/06/2018.
 //
 
+#include <iostream>
 #include "Oasis2.h"
 #include "Heap.h"
 #include "Clan.h"
@@ -135,6 +136,8 @@ void Oasis2::clanFight(int clan1, int clan2, int k1, int k2){
     Pair& key2 = clan2_data->getKBestPlayer(k2);
     int score1 = clan1_data->getSumOfBestK(key1);
     int score2 = clan2_data->getSumOfBestK(key2);
+    std::cout << "score of clan" << clan1 << " " << score1 << std::endl;
+    std::cout << "score of clan" << clan2 << " " << score2 << std::endl;
     if (score1 > score2){
         clan2_data->setNotActive();
         this->heap->remove(clan2_data->getIndex());
