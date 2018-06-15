@@ -896,6 +896,7 @@ int main(){
     getMinClan(DS, &d);
     addPlayer(DS, 987, 240, 7);
     addPlayer(DS, 189, 63, 4);
+    clanFight(DS, 1, 8, 6, 8);
     quit(&DS);
     /*
     void* oasis=testInit1();
