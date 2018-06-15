@@ -125,7 +125,7 @@ void Oasis2::clanFight(int clan1, int clan2, int k1, int k2){
     if (clan1_data == nullptr || clan2_data == nullptr){
         throw std::exception();
     }
-    if (!clan1_data->getIsActive() || !clan1_data->getIsActive()){
+    if (!clan1_data->getIsActive() || !clan2_data->getIsActive()){
         throw std::exception();
     }
     if (clan1_data->getNumOfPlayers() < k1 || clan2_data->getNumOfPlayers() < k2){

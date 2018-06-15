@@ -88,6 +88,7 @@ public:
 
     void deleteMin() {
         swap(1,num_of_elements);
+        (*arr)[num_of_elements]->
         (*arr)[num_of_elements] = nullptr;
         num_of_elements--;
         this->siftDown(1);
