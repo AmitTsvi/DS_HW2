@@ -322,7 +322,7 @@ public:
     }
 
     Key& getKeyOfRank(int rank, int* current_rank){
-        int check_rank = *current_rank +1;;
+        int check_rank = *current_rank +1;
         if (this->rson != nullptr){
             check_rank += this->rson->size;
         }
@@ -333,7 +333,11 @@ public:
             return this->rson->getKeyOfRank(rank, current_rank);
         } else {
             assert(this->lson != nullptr);
-            *current_rank += this->rson->size + 1;
+            if (this->rson != nullptr){
+                *current_rank += this->rson->size + 1;
+            } else {
+                *current_rank += 1;
+            }
             return this->lson->getKeyOfRank(rank, current_rank);
         }
     }
