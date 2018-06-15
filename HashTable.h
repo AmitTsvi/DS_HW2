@@ -61,7 +61,7 @@ public:
                 array[i] = nullptr;
             }
         }
-        delete array;
+        delete[] array;
     }
 
     HashTable(const HashTable& list) = delete;
