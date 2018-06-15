@@ -23,6 +23,9 @@ class Heap {
     }
 
     void siftDown (int index) {
+        if (num_of_elements == 1) {
+            return;
+        }
         if (index*4 <= num_of_elements) {
             siftDown(index*2);
         }
