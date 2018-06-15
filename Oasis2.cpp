@@ -45,6 +45,7 @@ Oasis2::Oasis2(int n, int* clanIDs): players_tree(nullptr), heap(nullptr), hashT
             delete[] clan_ptrs_arr;
             throw e;
         }
+        delete[] clan_ptrs_arr;
     } catch (std::exception& e) {
         throw e;
     }
