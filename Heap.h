@@ -54,7 +54,7 @@ class Heap {
 
 public:
     explicit Heap(int n, T** keys_arr): arr(nullptr), num_of_elements(0) {
-        arr = new DynamicArray<T*>(n*3);
+        arr = new DynamicArray<T*>(n*2);
         for (int i=0;i<n;i++) {
             this->insert(*(keys_arr+i),true);
         }
@@ -99,6 +99,7 @@ public:
     void remove(int index) {
         this->decKey(index,DELETE_INDEX);
         this->deleteMin();
+        arr->decSize(num_of_elements);
     }
 
     int getNumOfElements () {
