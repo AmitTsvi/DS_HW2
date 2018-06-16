@@ -47,21 +47,6 @@ public:
         }
         return *(head+index);
     }
-
-    void decSize (int num_of_elements) {
-        if (num_of_elements > (size/4)) {
-            return;
-        }
-        T* new_head = new T[size/2];
-        T* new_ptr = new_head;
-        for (T* ptr=head; ptr < head+(size/2); ptr++) {
-            *new_ptr = *ptr;
-            new_ptr++;
-        }
-        delete[] head;
-        head = new_head;
-        size = size/2;
-    }
 };
 
 #endif //WET2_DYNAMICARRAY_H

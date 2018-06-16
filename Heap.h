@@ -99,7 +99,6 @@ public:
     void remove(int index) {
         this->decKey(index,DELETE_INDEX);
         this->deleteMin();
-        arr->decSize(num_of_elements);
     }
 
     int getNumOfElements () {
