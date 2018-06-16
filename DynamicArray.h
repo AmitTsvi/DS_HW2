@@ -22,7 +22,7 @@ class DynamicArray {
         for (;new_ptr < (new_head+(size*2)); new_ptr++) {
             *new_ptr = nullptr;
         }
-        delete[] head;  //should delete like that?
+        delete[] head;
         head = new_head;
         size = size*3;
     }

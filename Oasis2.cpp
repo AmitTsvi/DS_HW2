@@ -2,7 +2,6 @@
 // Created by Nitzan on 11/06/2018.
 //
 
-#include <iostream>
 #include "Oasis2.h"
 #include "Heap.h"
 #include "Clan.h"
@@ -13,15 +12,19 @@ Oasis2::Oasis2(int n, int* clanIDs): players_tree(nullptr), heap(nullptr), hashT
         try {
             int* IDs_ptr = clanIDs;
             int i=1;
-            for (Clan** it = clan_ptrs_arr; it<clan_ptrs_arr+n;it++) {
+            for (Clan** it1 = clan_ptrs_arr; it1<clan_ptrs_arr+n;it1++) {
+                *it1 = nullptr;
+            }
+            for (Clan** it2 = clan_ptrs_arr; it2<clan_ptrs_arr+n;it2++) {
                 try {
                     Clan* clan = new Clan(*IDs_ptr,i);
-                    *it = clan;
+                    *it2 = clan;
                     IDs_ptr++;
                     i++;
                 } catch (std::exception& e) {
                     delClanArr(clan_ptrs_arr);
                     delete[] clan_ptrs_arr;
+                    clan_ptrs_arr = nullptr;
                     throw e;
                 }
             }
@@ -34,11 +37,16 @@ Oasis2::Oasis2(int n, int* clanIDs): players_tree(nullptr), heap(nullptr), hashT
                     delete heap;
                     delete hashTable;
                     delete[] clan_ptrs_arr;
+                    clan_ptrs_arr = nullptr;
+                    heap = nullptr;
+                    hashTable = nullptr;
                     throw e;
                 }
             } catch (std::exception& e) {
                 delete hashTable;
                 delete[] clan_ptrs_arr;
+                clan_ptrs_arr = nullptr;
+                hashTable = nullptr;
                 throw e;
             }
         } catch (std::exception& e) {
@@ -75,7 +83,7 @@ void Oasis2::addClan (int clan_id) {
             }
         } catch (std::exception& e) {
             delete clan;
-            //heap->setNumOfElements(org_num_of_elm);
+            heap->setNumOfElements(org_num_of_elm);
             throw e;
         }
     } catch (std::exception& e) {
@@ -87,35 +95,39 @@ void Oasis2::addPlayer (int playerID, int score, int clan) {
     if (hashTable->findElement(clan) == nullptr) {
         throw std::exception();
     }
-    Player* player = new Player(score,playerID);
     try {
-        int* key = new int(playerID);
+        Player* player = new Player(score,playerID);
         try {
-            players_tree = players_tree->insert(*key, *player);
+            int* key = new int(playerID);
+            try {
+                players_tree = players_tree->insert(*key, *player);
+            } catch (std::exception& e) {
+                delete player;
+                player = nullptr;
+                delete key;
+                throw std::exception();
+            }
         } catch (std::exception& e) {
             delete player;
-            player = nullptr;
-            delete key;
+            throw std::exception();
+        }
+        try {
+            Pair* pair = new Pair(playerID,score);
+            try {
+                hashTable->findElement(clan)->addPlayerToClan(*player, *pair);
+            } catch (std::exception& e){
+                delete pair;
+                //players_tree->remove();     //need to add remove again to tree and edit
+                delete player;
+                player = nullptr;
+                throw std::exception();
+            }
+        } catch (std::exception& e){
+            //players_tree->remove();     //need to add remove again to tree and edit
+            delete player;
             throw std::exception();
         }
     } catch (std::exception& e) {
-        delete player;
-        throw std::exception();
-    }
-    try {
-        Pair* pair = new Pair(playerID,score);
-        try {
-            hashTable->findElement(clan)->addPlayerToClan(*player, *pair);
-        } catch (std::exception& e){
-            delete pair;
-            //players_tree->remove();     //need to add remove again to tree and edit
-            delete player;
-            player = nullptr;
-            throw std::exception();
-        }
-    } catch (std::exception& e){
-        //players_tree->remove();     //need to add remove again to tree and edit
-        delete player;
         throw std::exception();
     }
 }
