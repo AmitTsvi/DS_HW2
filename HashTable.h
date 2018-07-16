@@ -19,23 +19,28 @@ class HashTable{
 
     void rehash(){
         List<T>** new_array = new List<T>*[3*hash_size];
+        for (int j = 0; j < 3*hash_size; j++){
+            new_array[j] = nullptr;
+        }
         for (int i=0; i < hash_size; i++){
-            for(typename List<T>::Iterator it = array[i]->begin(); it != array[i]->end(); it.operator++()){
-                int index = (*it).getId() % (3*hash_size);
-                if(new_array[index] == nullptr){
-                    new_array[index] = new List<T>(*it);
-                } else {
-                    new_array[index] = &array[index]->insertFirst(*it);
+            if (array[i] != nullptr){
+                for(typename List<T>::Iterator it = array[i]->begin(); it != array[i]->end(); it.operator++()){
+                    int index = (*it).getId() % (3*hash_size);
+                    if(new_array[index] == nullptr){
+                        new_array[index] = new List<T>(*it);
+                    } else {
+                        new_array[index] = &new_array[index]->insertFirst(*it);
+                    }
+                }
+                if (array[i] != nullptr){
+                    delete array[i];
+                    array[i] = nullptr;
                 }
             }
-            if (array[i] != nullptr){
-                delete array[i];
-                array[i] = nullptr;
-            }
         }
-        delete array;
+        delete[] array;
         hash_size = 3*hash_size;
-        array = new_array;
+        this->array = new_array;
     }
 
 public:
